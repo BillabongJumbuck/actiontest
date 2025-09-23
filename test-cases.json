@@ -1,0 +1,18 @@
+[
+  {
+    "id": "tc-001",
+    "name": "获取用户信息测试",
+    "method": "GET",
+    "url": "http://localhost:8080/api/user",
+    "assertions": [
+      {
+        "type": "statusCode",
+        "expected": 200
+      },
+      {
+        "type": "body.name",
+        "expected": "testuser"
+      }
+    ]
+  }
+]
