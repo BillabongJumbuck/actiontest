@@ -4,7 +4,7 @@ async function runTests() {
     // 使用动态 import() 导入 node-fetch
     const fetch = await import('node-fetch').then(module => module.default);
 
-    const testCases = JSON.parse(fs.readFileSync('test-cases.json', 'utf-8'));
+    const testCases = JSON.parse(fs.readFileSync('../test-cases/api-tests.json', 'utf-8'));
     let allPassed = true;
 
     for (const testCase of testCases) {
