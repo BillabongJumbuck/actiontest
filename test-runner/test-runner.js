@@ -1,7 +1,9 @@
 const fs = require('fs');
-const fetch = require('node-fetch'); // 需要安装 node-fetch
 
 async function runTests() {
+    // 使用动态 import() 导入 node-fetch
+    const fetch = await import('node-fetch').then(module => module.default);
+
     const testCases = JSON.parse(fs.readFileSync('test-cases.json', 'utf-8'));
     let allPassed = true;
 
