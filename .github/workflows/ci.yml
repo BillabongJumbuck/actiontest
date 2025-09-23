@@ -1,0 +1,43 @@
+name: API Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  api-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build and Run Spring Boot App
+        run: |
+          # 使用 `&` 在后台运行，以便后续步骤可以执行
+          mvn spring-boot:run &
+          # 等待服务启动。在实际项目中，可以替换为健康检查脚本
+          sleep 30
+
+      - name: Set up Node.js for Test Runner
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Test Runner Dependencies
+        run: |
+          # 进入 test-runner 目录，安装依赖
+          cd test-runner
+          npm install
+
+      - name: Run API Tests
+        run: |
+          # 从 test-runner 目录运行脚本，并指定用例文件的路径
+          node test-runner/test-runner.js test-cases/api-tests.json
