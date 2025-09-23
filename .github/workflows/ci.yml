@@ -21,10 +21,10 @@ jobs:
 
       - name: Build and Run Spring Boot App
         run: |
-          # 使用 `&` 在后台运行，以便后续步骤可以执行
           mvn spring-boot:run &
-          # 等待服务启动。在实际项目中，可以替换为健康检查脚本
-          sleep 30
+          # 给予脚本可执行权限并等待 API 准备就绪
+          chmod +x ./wait-for-it.sh
+          ./wait-for-it.sh
 
       - name: Set up Node.js for Test Runner
         uses: actions/setup-node@v3
@@ -33,13 +33,10 @@ jobs:
 
       - name: Install Test Runner Dependencies
         run: |
-          # 进入 test-runner 目录，安装依赖
           cd test-runner
           npm install
 
       - name: Run API Tests
         run: |
-          # 1. 进入你的测试执行器目录
           cd test-runner
-          # 2. 从该目录运行脚本，此时 `..` 就能正确指向仓库根目录
           node test-runner.js
