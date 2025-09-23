@@ -39,5 +39,7 @@ jobs:
 
       - name: Run API Tests
         run: |
-          # 从 test-runner 目录运行脚本，并指定用例文件的路径
-          node test-runner/test-runner.js test-cases/api-tests.json
+          # 1. 进入你的测试执行器目录
+          cd test-runner
+          # 2. 从该目录运行脚本，此时 `..` 就能正确指向仓库根目录
+          node test-runner.js
