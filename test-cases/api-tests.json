@@ -11,7 +11,7 @@
       },
       {
         "type": "body.name",
-        "expected": "testuser"
+        "expected": "testuser2"
       }
     ]
   }
